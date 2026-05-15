@@ -21,7 +21,6 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-        /* Header */
         .header-top {
             background: #1e3a2f;
             color: #d9f0e6;
@@ -44,6 +43,7 @@
             padding: 4px 12px;
             border-radius: 30px;
             font-weight: bold;
+            text-decoration: none;
         }
         .main-header {
             background: white;
@@ -74,7 +74,6 @@
         .nav a:hover {
             color: #48b28a;
         }
-        /* Filters */
         .filters {
             background: white;
             border-radius: 28px;
@@ -123,7 +122,10 @@
         .btn-primary:hover {
             background: #358567;
         }
-        /* Cards — всё ровно */
+        .btn-large {
+            padding: 14px 32px;
+            font-size: 18px;
+        }
         .section-title {
             font-size: 28px;
             font-weight: 700;
@@ -163,32 +165,26 @@
             flex-direction: column;
             flex-grow: 1;
         }
-        /* Заголовок занимает фиксированную минимальную высоту, но может расти */
         .card-title {
             font-size: 18px;
             font-weight: 800;
             margin-bottom: 8px;
-            min-height: 48px;
         }
-        /* Добавляем единый стиль для описания, чтобы блоки были одинаковой высоты */
         .card-desc {
             font-size: 14px;
             color: #4a6a5e;
-            line-height: 1.4;
             margin-bottom: 12px;
-            min-height: 60px;
         }
         .card-price {
             font-size: 22px;
             font-weight: 800;
             color: #48b28a;
-            margin: 12px 0 16px;
+            margin: 12px 0;
         }
         .card .btn {
             margin-top: auto;
             width: 100%;
         }
-        /* Booking */
         .booking-preview {
             background: #e6f4ef;
             border-radius: 28px;
@@ -241,6 +237,10 @@
             text-align: center;
             padding: 32px;
             margin-top: 48px;
+        }
+        .footer a {
+            color: #b8e4d4;
+            text-decoration: none;
         }
         .feature-list {
             margin-top: 12px;
@@ -339,7 +339,7 @@
                 <div class="field"><label>Время</label><select><option>10:00</option><option>13:00</option><option>16:00</option></select></div>
                 <div class="field"><label>Количество</label><select><option>1 взрослый</option><option>2 взрослых</option><option>3 взрослых</option></select></div>
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
                 <div class="price-badge">💰 2 500 ₽</div>
                 <button class="btn btn-primary" style="padding: 12px 32px;">Забронировать и оплатить</button>
             </div>
@@ -347,13 +347,13 @@
         </div>
         <div class="offer-block">
             <div>
-                <strong>🎯 Готовы сделать такой же сайт для ваших экскурсий</strong><br>
+                <strong>🎯 Готовы сделать такой же сайт для ваших экскурсий</strong>
                 <ul class="feature-list">
                     <li><strong>Упрощённый сайт — 30 000 ₽</strong> (срок 5–7 дней)</li>
                     <li><strong>Под ключ — 70 000 ₽</strong> (срок 10–14 дней)</li>
                 </ul>
             </div>
-            <div><a href="#" class="btn btn-primary" style="background:#1e3a2f;">🚀 Заказать сайт</a></div>
+            <div><a href="#" class="btn btn-primary btn-large" style="background:#1e3a2f;">🚀 Заказать сайт</a></div>
         </div>
         <div class="info-block">
             <h4>✅ Что входит в упрощённый сайт (30 000 ₽):</h4>
@@ -379,8 +379,8 @@
     </div>
     <div class="footer">
         <p>КазаньВолга — речные прогулки, экскурсии, теплоходы | Казань</p>
-        <p>📞 +7 (903) 305 09 91 | ✉️ mail@kazanvolga.ru</p>
-        <p style="font-size: 12px;">Статичный пример дизайна. Полноценный сайт с оплатой разрабатывается под заказ.</p>
+        <p>📞 +7 (903) 305 09 91 | ✉️ <a href="mailto:mail@kazanvolga.ru">mail@kazanvolga.ru</a></p>
+        <p style="font-size: 12px; margin-top: 12px;">Статичный пример дизайна. Полноценный сайт с оплатой разрабатывается под заказ.</p>
     </div>
 </body>
 </html>
