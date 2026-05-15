@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>КазаньВолга — Экскурсии по Казани и Татарстану</title>
+    <title>КазаньВолга — Экскурсии по Казани</title>
     <style>
         * {
             margin: 0;
@@ -12,8 +12,8 @@
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f9f0;
-            color: #1e4620;
+            background: #eef7f0;
+            color: #1e3a2f;
             line-height: 1.5;
         }
         .container {
@@ -21,10 +21,10 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-        /* Летняя цветовая гамма */
+        /* Header */
         .header-top {
-            background: #1e4620;
-            color: #f5f5dc;
+            background: #1e3a2f;
+            color: #d9f0e6;
             padding: 12px 0;
             font-size: 14px;
         }
@@ -35,12 +35,12 @@
             gap: 12px;
         }
         .header-top a {
-            color: #ffe5b4;
+            color: #b8e4d4;
             text-decoration: none;
         }
         .book-btn {
-            background: #ffb347;
-            color: #1e4620;
+            background: #48b28a;
+            color: white;
             padding: 4px 12px;
             border-radius: 30px;
             font-weight: bold;
@@ -48,7 +48,7 @@
         .main-header {
             background: white;
             padding: 20px 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
         .main-header .container {
             display: flex;
@@ -60,30 +60,27 @@
         .logo {
             font-size: 28px;
             font-weight: 800;
-            color: #ffb347;
-            text-shadow: 1px 1px 0 #1e4620;
+            color: #48b28a;
         }
         .logo span {
-            color: #1e4620;
-            font-size: 24px;
+            color: #1e3a2f;
         }
         .nav a {
             text-decoration: none;
-            color: #1e4620;
+            color: #2c5a48;
             margin-left: 24px;
             font-weight: 500;
-            transition: 0.2s;
         }
         .nav a:hover {
-            color: #ffb347;
+            color: #48b28a;
         }
-        /* Фильтры */
+        /* Filters */
         .filters {
             background: white;
             border-radius: 28px;
             padding: 24px;
             margin: 32px 0;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
         }
         .filters-grid {
             display: flex;
@@ -98,41 +95,39 @@
         .filter-group label {
             font-size: 12px;
             font-weight: 600;
-            color: #1e4620;
-            display: block;
-            margin-bottom: 6px;
+            color: #2c5a48;
         }
         .filter-group select, .filter-group input {
             width: 100%;
             padding: 12px;
-            border: 1px solid #c8e6c9;
+            border: 1px solid #cfe9df;
             border-radius: 20px;
-            background: #fef9e6;
+            background: #fefef7;
         }
         .btn {
             padding: 10px 24px;
             border-radius: 40px;
             text-decoration: none;
             font-weight: 600;
-            display: inline-block;
             border: none;
             cursor: pointer;
+            display: inline-block;
         }
         .btn-primary {
-            background: #ffb347;
-            color: #1e4620;
+            background: #48b28a;
+            color: white;
         }
         .btn-primary:hover {
-            background: #e69500;
+            background: #358567;
         }
-        /* Карточки */
+        /* Cards */
         .section-title {
             font-size: 28px;
             font-weight: 700;
             margin: 40px 0 20px;
-            border-left: 5px solid #ffb347;
+            border-left: 5px solid #48b28a;
             padding-left: 16px;
-            color: #1e4620;
+            color: #1e3a2f;
         }
         .cards-grid {
             display: grid;
@@ -144,11 +139,11 @@
             background: white;
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
             transition: 0.2s;
         }
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
         }
         .card-img {
             height: 200px;
@@ -161,20 +156,18 @@
         .card-title {
             font-size: 18px;
             font-weight: 800;
-            margin-bottom: 8px;
         }
         .card-price {
             font-size: 22px;
             font-weight: 800;
-            color: #ffb347;
+            color: #48b28a;
             margin: 12px 0;
         }
         .booking-preview {
-            background: #fef9e6;
+            background: #e6f4ef;
             border-radius: 28px;
             padding: 28px;
             margin: 40px 0;
-            border: 1px solid #ffecb3;
         }
         .booking-row {
             display: flex;
@@ -188,23 +181,23 @@
         }
         .field label {
             font-weight: 600;
-            color: #1e4620;
+            color: #1e3a2f;
         }
         .field input, .field select {
             width: 100%;
             padding: 12px;
             border-radius: 20px;
-            border: 1px solid #c8e6c9;
+            border: 1px solid #cfe9df;
             background: white;
         }
         .price-badge {
             font-size: 28px;
             font-weight: 800;
-            color: #ffb347;
+            color: #48b28a;
         }
         .offer-block {
-            background: #1e4620;
-            color: #f5f5dc;
+            background: #d9f0e6;
+            color: #1e3a2f;
             border-radius: 28px;
             padding: 28px;
             margin: 40px 0;
@@ -214,15 +207,16 @@
             gap: 20px;
             align-items: center;
         }
-        .offer-block a {
-            color: #ffb347;
-        }
         .footer {
-            background: #1e4620;
-            color: #f5f5dc;
+            background: #1e3a2f;
+            color: #cfe9df;
             text-align: center;
             padding: 32px;
             margin-top: 48px;
+        }
+        .feature-list {
+            margin-top: 12px;
+            margin-left: 20px;
         }
         @media (max-width: 768px) {
             .nav a {
@@ -233,7 +227,6 @@
     </style>
 </head>
 <body>
-    <!-- Верхняя строка с контактами и заказом брони -->
     <div class="header-top">
         <div class="container">
             <div>📞 +7 (903) 305 09 91</div>
@@ -241,8 +234,6 @@
             <div><a href="#" class="book-btn">🚢 Заказ, бронь катеров, теплоходов, экскурсий</a></div>
         </div>
     </div>
-
-    <!-- Основная навигация -->
     <div class="main-header">
         <div class="container">
             <div class="logo">Казань<span>Волга</span></div>
@@ -257,9 +248,7 @@
             </div>
         </div>
     </div>
-
     <div class="container">
-        <!-- Фильтры -->
         <div class="filters">
             <div class="filters-grid">
                 <div class="filter-group"><label>Куда поедем</label><select><option>Любое направление</option><option>Казань</option><option>Свияжск</option><option>Раифа</option></select></div>
@@ -268,7 +257,6 @@
                 <div class="filter-group"><button class="btn btn-primary">🔍 Найти экскурсии</button></div>
             </div>
         </div>
-
         <div class="section-title">🔥 Популярные экскурсии в Казани</div>
         <div class="cards-grid">
             <div class="card">
@@ -276,7 +264,6 @@
                 <div class="card-content">
                     <div class="card-title">Казанский Кремль и мечеть Кул-Шариф</div>
                     <div class="card-price">от 2 500 ₽</div>
-                    <div class="card-info">⏱ 2.5 часа | 👥 до 15 чел</div>
                     <button class="btn btn-primary" style="width:100%">Подробнее</button>
                 </div>
             </div>
@@ -285,7 +272,6 @@
                 <div class="card-content">
                     <div class="card-title">Остров-град Свияжск</div>
                     <div class="card-price">от 4 200 ₽</div>
-                    <div class="card-info">🚗 6 часов | 🥗 обед включён</div>
                     <button class="btn btn-primary" style="width:100%">Подробнее</button>
                 </div>
             </div>
@@ -294,7 +280,6 @@
                 <div class="card-content">
                     <div class="card-title">Ночная Казань + подсветка Кремля</div>
                     <div class="card-price">от 3 000 ₽</div>
-                    <div class="card-info">🌙 3 часа | 🍷 дегустация</div>
                     <button class="btn btn-primary" style="width:100%">Подробнее</button>
                 </div>
             </div>
@@ -303,20 +288,17 @@
                 <div class="card-content">
                     <div class="card-title">Раифский монастырь и экопарк</div>
                     <div class="card-price">от 3 500 ₽</div>
-                    <div class="card-info">🌲 4 часа | 🚌 трансфер</div>
                     <button class="btn btn-primary" style="width:100%">Подробнее</button>
                 </div>
             </div>
         </div>
-
-        <!-- БРОНИРОВАНИЕ (как tripster) -->
         <div class="booking-preview">
             <h3>📅 Выбрать время и забронировать</h3>
             <p>Пример для экскурсии «Казанский Кремль»</p>
             <div class="booking-row">
-                <div class="field"><label>📆 Дата</label><input type="date" value="2026-05-20"></div>
-                <div class="field"><label>⏰ Время</label><select><option>10:00</option><option>13:00</option><option>16:00</option></select></div>
-                <div class="field"><label>👥 Количество</label><select><option>1 взрослый</option><option>2 взрослых</option><option>3 взрослых</option></select></div>
+                <div class="field"><label>Дата</label><input type="date" value="2026-05-20"></div>
+                <div class="field"><label>Время</label><select><option>10:00</option><option>13:00</option><option>16:00</option></select></div>
+                <div class="field"><label>Количество</label><select><option>1 взрослый</option><option>2 взрослых</option><option>3 взрослых</option></select></div>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
                 <div class="price-badge">💰 2 500 ₽</div>
@@ -325,22 +307,21 @@
             <div style="font-size: 13px; margin-top: 16px;">🔒 Бесплатная отмена | Оплата картой, СБП</div>
         </div>
 
-        <!-- ВАШИ ПАКЕТЫ: упрощённый и под ключ -->
+        <!-- Блок с ценами и честными сроками -->
         <div class="offer-block">
             <div>
                 <strong>🎯 Готовы сделать такой же сайт для ваших экскурсий</strong><br>
-                Выбирайте подходящий пакет:
-                <ul style="margin-top: 12px; margin-left: 20px;">
-                    <li><strong>Упрощённый сайт — 30 000 ₽</strong> (каталог, фильтры, форма заявки, админка, 10 дней)</li>
-                    <li><strong>Под ключ — от 80 000 ₽</strong> (онлайн-оплата, выбор времени, личный кабинет, автоподтверждение, 14-21 день)</li>
+                <ul class="feature-list">
+                    <li><strong>Упрощённый сайт — 30 000 ₽</strong> (срок 5–7 дней)</li>
+                    <li><strong>Под ключ — 70 000 ₽</strong> (срок 10–14 дней)</li>
                 </ul>
             </div>
-            <div><a href="#" class="btn btn-primary" style="background:#f5f5dc; color:#1e4620;">🚀 Заказать сайт</a></div>
+            <div><a href="#" class="btn btn-primary" style="background:#1e3a2f;">🚀 Заказать сайт</a></div>
         </div>
 
-        <div style="background:#fff3e0; border-radius: 24px; padding: 20px; margin: 20px 0;">
+        <div style="background:#fefef7; border-radius: 24px; padding: 24px; margin: 20px 0; border: 1px solid #cfe9df;">
             <h4>✅ Что входит в упрощённый сайт (30 000 ₽):</h4>
-            <ul style="margin-top: 12px; margin-left: 20px;">
+            <ul class="feature-list">
                 <li>Современный дизайн, адаптация под телефон</li>
                 <li>Каталог экскурсий с фото (до 10 штук)</li>
                 <li>Фильтры по дате, месту, участникам</li>
@@ -348,22 +329,22 @@
                 <li>Форма заявки — клиент оставляет телефон, вы связываетесь</li>
                 <li>Админ-панель: добавлять/менять экскурсии, смотреть заявки</li>
                 <li>Выгрузка заявок в Excel</li>
+                <li>Уведомления менеджеру на почту и в Telegram</li>
             </ul>
-            <h4 style="margin-top: 16px;">💎 Что добавится в пакете «Под ключ» (+ от 50 000 ₽ к упрощённому):</h4>
-            <ul style="margin-top: 12px; margin-left: 20px;">
+            <h4 style="margin-top: 20px;">💎 Что добавится в пакете «Под ключ» (70 000 ₽):</h4>
+            <ul class="feature-list">
                 <li>Реальная онлайн-оплата (карта, СБП, ЮKassa)</li>
                 <li>Автоматическое бронирование с подтверждением по email</li>
                 <li>Личный кабинет покупателя (история броней)</li>
                 <li>Календарь занятых слотов (нельзя забронировать уже занятое время)</li>
-                <li>Интеграция с CRM / отправка уведомлений менеджеру</li>
+                <li>Готовые договоры и политика обработки данных</li>
             </ul>
         </div>
     </div>
-
     <div class="footer">
         <p>КазаньВолга — речные прогулки, экскурсии, теплоходы | Казань</p>
-        <p style="margin-top: 8px;">📞 +7 (903) 305 09 91 | ✉️ mail@kazanvolga.ru</p>
-        <p style="margin-top: 8px; font-size: 12px;">Статичный пример дизайна. Полноценный сайт с оплатой разрабатывается под заказ.</p>
+        <p>📞 +7 (903) 305 09 91 | ✉️ mail@kazanvolga.ru</p>
+        <p style="font-size: 12px;">Статичный пример дизайна. Полноценный сайт с оплатой разрабатывается под заказ.</p>
     </div>
 </body>
 </html>
