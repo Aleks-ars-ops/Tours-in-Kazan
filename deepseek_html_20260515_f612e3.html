@@ -163,16 +163,26 @@
             flex-direction: column;
             flex-grow: 1;
         }
+        /* Заголовок занимает фиксированную минимальную высоту, но может расти */
         .card-title {
             font-size: 18px;
             font-weight: 800;
             margin-bottom: 8px;
+            min-height: 48px;
+        }
+        /* Добавляем единый стиль для описания, чтобы блоки были одинаковой высоты */
+        .card-desc {
+            font-size: 14px;
+            color: #4a6a5e;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            min-height: 60px;
         }
         .card-price {
             font-size: 22px;
             font-weight: 800;
             color: #48b28a;
-            margin: 12px 0;
+            margin: 12px 0 16px;
         }
         .card .btn {
             margin-top: auto;
@@ -288,6 +298,7 @@
                 <div class="card-img" style="background-image: url('https://avatars.mds.yandex.net/i?id=cd5f466cbcf6bbbcf686f430c3fee818_l-5206345-images-thumbs&n=13');"></div>
                 <div class="card-content">
                     <div class="card-title">Казанский Кремль и мечеть Кул-Шариф</div>
+                    <div class="card-desc">Знакомство с главной достопримечательностью Татарстана</div>
                     <div class="card-price">от 2 500 ₽</div>
                     <button class="btn btn-primary">Подробнее</button>
                 </div>
@@ -296,6 +307,7 @@
                 <div class="card-img" style="background-image: url('https://avatars.mds.yandex.net/i?id=9c245123dc2fa959cffa249875103f23_l-5869106-images-thumbs&n=13');"></div>
                 <div class="card-content">
                     <div class="card-title">Остров-град Свияжск</div>
+                    <div class="card-desc">Путешествие в уникальный музей под открытым небом</div>
                     <div class="card-price">от 4 200 ₽</div>
                     <button class="btn btn-primary">Подробнее</button>
                 </div>
@@ -304,6 +316,7 @@
                 <div class="card-img" style="background-image: url('https://avatars.mds.yandex.net/i?id=3cff991ca735be8df5f6f80e70e7866d_l-8210406-images-thumbs&n=13');"></div>
                 <div class="card-content">
                     <div class="card-title">Ночная Казань + подсветка Кремля</div>
+                    <div class="card-desc">Романтическая прогулка по вечернему городу</div>
                     <div class="card-price">от 3 000 ₽</div>
                     <button class="btn btn-primary">Подробнее</button>
                 </div>
@@ -312,6 +325,7 @@
                 <div class="card-img" style="background-image: url('https://img.pac.ru/landmarks/481135/big/06837E157F0001012ED2DD8B527C64D8.jpg');"></div>
                 <div class="card-content">
                     <div class="card-title">Раифский монастырь и экопарк</div>
+                    <div class="card-desc">Духовная обитель и живописная природа</div>
                     <div class="card-price">от 3 500 ₽</div>
                     <button class="btn btn-primary">Подробнее</button>
                 </div>
