@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>КазаньВолга — Экскурсии по Казани с онлайн-бронированием</title>
+    <title>КазаньВолга — Экскурсии по Казани с полной навигацией</title>
     <style>
         * {
             margin: 0;
@@ -16,6 +16,7 @@
             background: #eef7f0;
             color: #1e3a2f;
             line-height: 1.5;
+            scroll-behavior: smooth;
         }
 
         .container {
@@ -64,6 +65,9 @@
             background: white;
             padding: 20px 0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .main-header .container {
@@ -90,6 +94,7 @@
             margin-left: 24px;
             font-weight: 500;
             transition: color 0.2s;
+            cursor: pointer;
         }
 
         .nav a:hover {
@@ -172,7 +177,7 @@
             color: #1e3a2f;
         }
 
-        /* Cards Grid - с выровненными карточками и ценами */
+        /* Cards Grid */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -224,7 +229,6 @@
             flex-grow: 1;
         }
 
-        /* Единый блок цены с фиксированной высотой для ровного выравнивания */
         .card-price-wrapper {
             margin: 8px 0 16px 0;
             min-height: 56px;
@@ -294,6 +298,43 @@
             font-size: 28px;
             font-weight: 800;
             color: #48b28a;
+        }
+
+        /* Разделы для навигации */
+        .section-block {
+            scroll-margin-top: 100px;
+        }
+
+        .about-block, .partners-block, .reviews-block, .contacts-block, .touroperator-block {
+            background: white;
+            border-radius: 28px;
+            padding: 32px;
+            margin: 40px 0;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04);
+        }
+
+        .about-block h2, .partners-block h2, .reviews-block h2, .contacts-block h2, .touroperator-block h2 {
+            color: #1e3a2f;
+            margin-bottom: 20px;
+            font-size: 28px;
+            border-left: 5px solid #48b28a;
+            padding-left: 16px;
+        }
+
+        .partner-list, .review-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .partner-item, .review-item {
+            background: #f9fdfb;
+            padding: 20px;
+            border-radius: 24px;
+            flex: 1;
+            min-width: 200px;
+            border: 1px solid #cfe9df;
         }
 
         .offer-block {
@@ -398,45 +439,109 @@
         <div class="container">
             <div class="logo">Казань<span>Волга</span></div>
             <div class="nav">
-                <a href="#" id="navHome">Главная</a>
-                <a href="#" id="navAbout">О компании</a>
-                <a href="#" id="navTours">Экскурсии</a>
-                <a href="#" id="navAgency">Турфирмам</a>
-                <a href="#" id="navPartners">Партнеры</a>
-                <a href="#" id="navReviews">Отзывы</a>
-                <a href="#" id="navContacts">Контакты</a>
+                <a data-section="home">Главная</a>
+                <a data-section="about">О компании</a>
+                <a data-section="tours">Экскурсии</a>
+                <a data-section="touroperator">Турфирмам</a>
+                <a data-section="partners">Партнеры</a>
+                <a data-section="reviews">Отзывы</a>
+                <a data-section="contacts">Контакты</a>
             </div>
         </div>
     </div>
+
     <div class="container">
-        <div class="filters">
-            <div class="filters-grid">
-                <div class="filter-group"><label>Куда поедем</label><select id="filterDirection"><option>Любое направление</option><option>Казань</option><option>Свияжск</option><option>Раифа</option></select></div>
-                <div class="filter-group"><label>Когда</label><input type="date" id="filterDate" value="2026-05-20"></div>
-                <div class="filter-group"><label>Участники</label><select id="filterPeople"><option>1 взрослый</option><option>2 взрослых</option><option>Семья (2+1)</option></select></div>
-                <div class="filter-group"><button class="btn btn-primary" id="applyFilterBtn">🔍 Найти экскурсии</button></div>
+        <!-- Блок ГЛАВНАЯ (видимый по умолчанию) -->
+        <div id="homeSection" class="section-block">
+            <div class="filters">
+                <div class="filters-grid">
+                    <div class="filter-group"><label>Куда поедем</label><select id="filterDirection"><option>Любое направление</option><option>Казань</option><option>Свияжск</option><option>Раифа</option></select></div>
+                    <div class="filter-group"><label>Когда</label><input type="date" id="filterDate" value="2026-06-15"></div>
+                    <div class="filter-group"><label>Участники</label><select id="filterPeople"><option>1 взрослый</option><option>2 взрослых</option><option>Семья (2+1)</option></select></div>
+                    <div class="filter-group"><button class="btn btn-primary" id="applyFilterBtn">🔍 Найти экскурсии</button></div>
+                </div>
+            </div>
+            <div class="section-title">🔥 Популярные экскурсии в Казани</div>
+            <div class="cards-grid" id="cardsContainer"></div>
+            
+            <div class="booking-preview" id="bookingSection">
+                <h3>📅 Выбрать время и забронировать</h3>
+                <p>Пример для экскурсии <strong id="demoTourName">«Казанский Кремль»</strong></p>
+                <div class="booking-row">
+                    <div class="field"><label>Дата</label><input type="date" id="bookingDate" value="2026-06-15"></div>
+                    <div class="field"><label>Время</label><select id="bookingTime"><option>10:00</option><option>13:00</option><option>16:00</option></select></div>
+                    <div class="field"><label>Количество</label><select id="bookingGuests"><option>1 взрослый</option><option>2 взрослых</option><option>3 взрослых</option></select></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                    <div class="price-badge" id="demoPriceDisplay">💰 2 500 ₽</div>
+                    <button class="btn btn-primary" id="realBookNowBtn" style="padding: 12px 32px;">Забронировать и оплатить</button>
+                </div>
+                <div style="font-size: 13px; margin-top: 16px;">🔒 Бесплатная отмена | Оплата картой, СБП</div>
             </div>
         </div>
-        <div class="section-title">🔥 Популярные экскурсии в Казани</div>
-        <div class="cards-grid" id="cardsContainer">
-            <!-- Карточки будут отображаться динамически через JS, но для надежности продублируем с ровными ценами и интерактивом -->
+
+        <!-- О КОМПАНИИ -->
+        <div id="aboutSection" class="about-block section-block" style="display: none;">
+            <h2>🌊 О компании «КазаньВолга»</h2>
+            <p style="font-size: 18px; margin-bottom: 20px;">Мы — команда профессионалов, влюблённых в Казань и Волгу. Более 12 лет организуем речные прогулки, теплоходные туры и авторские экскурсии по городу и окрестностям.</p>
+            <ul class="feature-list" style="margin-bottom: 16px;">
+                <li>✔️ Сертифицированные гиды, знающие историю и легенды Татарстана</li>
+                <li>✔️ Современный флот: комфортные катера, теплоходы с панорамными окнами</li>
+                <li>✔️ Индивидуальные и групповые экскурсии — от Кремля до Свияжска</li>
+                <li>✔️ Более 5000 довольных туристов ежегодно</li>
+            </ul>
+            <p>📞 Звоните: +7 (903) 305 09 91 — проконсультируем и подберём идеальный маршрут!</p>
         </div>
-        
-        <div class="booking-preview" id="bookingSection">
-            <h3>📅 Выбрать время и забронировать</h3>
-            <p>Пример для экскурсии <strong id="demoTourName">«Казанский Кремль»</strong></p>
-            <div class="booking-row">
-                <div class="field"><label>Дата</label><input type="date" id="bookingDate" value="2026-05-20"></div>
-                <div class="field"><label>Время</label><select id="bookingTime"><option>10:00</option><option>13:00</option><option>16:00</option></select></div>
-                <div class="field"><label>Количество</label><select id="bookingGuests"><option>1 взрослый</option><option>2 взрослых</option><option>3 взрослых</option></select></div>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-                <div class="price-badge" id="demoPriceDisplay">💰 2 500 ₽</div>
-                <button class="btn btn-primary" id="realBookNowBtn" style="padding: 12px 32px;">Забронировать и оплатить</button>
-            </div>
-            <div style="font-size: 13px; margin-top: 16px;">🔒 Бесплатная отмена | Оплата картой, СБП</div>
+
+        <!-- ЭКСКУРСИИ (дубль основной ленты, но для навигации) -->
+        <div id="toursSection" class="section-block" style="display: none;">
+            <!-- Здесь содержимое такое же как в homeSection, но для навигации дублируется динамически, можно показать тот же блок. Для простоты скопируем уникальный ID, но лучше переиспользовать homeSection контент, просто сделаем видимым. Реализуем через клонирование? Нет, сделаем переключение. В js будем показывать homeSection который уже есть, при клике "Экскурсии" - показываем тот же раздел что и главная. Поэтому просто переключаем видимость homeSection -->
+            <div class="filters-placeholder"></div>
+            <p style="padding: 20px; text-align: center;">📸 Смотрите популярные экскурсии выше на главной странице. Все туры с гидом, трансфером и водой. </p>
         </div>
-        
+
+        <!-- ТУРФИРМАМ -->
+        <div id="touroperatorSection" class="touroperator-block section-block" style="display: none;">
+            <h2>🤝 Сотрудничество с турфирмами и агентами</h2>
+            <p>Предлагаем выгодные условия партнёрства: агентское вознаграждение до 20%, оперативное бронирование, помощь в организации групповых туров. Предоставляем полный пакет документов для туроператоров.</p>
+            <div style="background: #e6f4ef; border-radius: 24px; padding: 20px; margin-top: 20px;">
+                <p><strong>📌 Приемущества работы с нами:</strong> онлайн-бронирование, эксклюзивные маршруты по Волге, гарантия лучшей цены. Станьте нашим партнёром — отправьте заявку на почту <a href="mailto:mail@kazanvolga.ru">mail@kazanvolga.ru</a> с пометкой "Турфирмам".</p>
+            </div>
+        </div>
+
+        <!-- ПАРТНЕРЫ -->
+        <div id="partnersSection" class="partners-block section-block" style="display: none;">
+            <h2>⭐ Надёжные партнёры КазаньВолга</h2>
+            <div class="partner-list">
+                <div class="partner-item">🏨 Гостиница «Шаляпин Palace» — специальные тарифы для наших гостей</div>
+                <div class="partner-item">🚌 Транспортная компания «КазаньТур» — комфортабельные автобусы</div>
+                <div class="partner-item">🍴 Ресторан «Дом татарской кухни» — скидка 10% для туристов</div>
+                <div class="partner-item">🏛️ Музей-заповедник «Казанский Кремль» — экскурсионное сопровождение</div>
+            </div>
+            <p style="margin-top: 20px;">Станьте нашим партнёром: <a href="mailto:partners@kazanvolga.ru">partners@kazanvolga.ru</a></p>
+        </div>
+
+        <!-- ОТЗЫВЫ -->
+        <div id="reviewsSection" class="reviews-block section-block" style="display: none;">
+            <h2>💬 Что говорят наши гости</h2>
+            <div class="review-list">
+                <div class="review-item">⭐️⭐️⭐️⭐️⭐️ <strong>Анна, Москва</strong><br>«Экскурсия на Свияжск — восторг! Гид Марина рассказывала так увлекательно, что дети слушали, не отвлекаясь. Обязательно вернёмся!»</div>
+                <div class="review-item">⭐️⭐️⭐️⭐️⭐️ <strong>Сергей, Казань</strong><br>«Ночная Казань с подсветкой Кремля — романтично и красиво. Организация на высшем уровне. Рекомендую!»</div>
+                <div class="review-item">⭐️⭐️⭐️⭐️⭐️ <strong>Елена, Санкт-Петербург</strong><br>«Теплоходная прогулка по Волге — отдельное удовольствие. Чисто, уютно, приветливый персонал. Спасибо, КазаньВолга!»</div>
+            </div>
+            <div style="margin-top: 20px; text-align: center;">📢 Хотите оставить отзыв? Напишите нам в WhatsApp или по почте.</div>
+        </div>
+
+        <!-- КОНТАКТЫ -->
+        <div id="contactsSection" class="contacts-block section-block" style="display: none;">
+            <h2>📞 Контактная информация</h2>
+            <p><strong>Адрес:</strong> г. Казань, ул. Татарстан, 24, офис 305 (БЦ «Волжский»)</p>
+            <p><strong>Телефон:</strong> +7 (903) 305 09 91 (ежедневно с 9:00 до 21:00)</p>
+            <p><strong>Email:</strong> <a href="mailto:mail@kazanvolga.ru">mail@kazanvolga.ru</a></p>
+            <p><strong>Режим работы:</strong> Пн-Вс: 09:00 – 20:00, бронирование online 24/7</p>
+            <div style="background:#eef7f0; border-radius: 20px; padding: 18px; margin-top: 20px;">📍 Мы находимся в центре Казани, рядом с пешеходной улицей Баумана. Приходите за живыми консультациями!</div>
+        </div>
+
         <div class="offer-block">
             <div>
                 <strong>🎯 Готовы сделать такой же сайт для ваших экскурсий</strong>
@@ -476,238 +581,79 @@
         <p>КазаньВолга — речные прогулки, экскурсии, теплоходы | Казань</p>
         <p>📞 +7 (903) 305 09 91 | ✉️ <a href="mailto:mail@kazanvolga.ru">mail@kazanvolga.ru</a></p>
         <p style="font-size: 12px; margin-top: 12px;">
-            Статичный пример дизайна. Полноценный сайт с оплатой разрабатывается под заказ.<br>
+            Полноценный сайт с оплатой разрабатывается под заказ.<br>
             <a href="https://aleks-ars-ops.github.io/PORTFOLLIO1/" target="_blank" style="color:#b8e4d4;">Посмотреть портфолио разработчика</a>
         </p>
     </div>
 
     <script>
-        // ----- Данные экскурсий с ровными полями цен -----
+        // Данные экскурсий
         const toursData = [
-            {
-                id: 1,
-                name: "Казанский Кремль и мечеть Кул-Шариф",
-                desc: "Знакомство с главной достопримечательностью Татарстана",
-                price: 2500,
-                oldPrice: null,
-                img: "https://avatars.mds.yandex.net/i?id=cd5f466cbcf6bbbcf686f430c3fee818_l-5206345-images-thumbs&n=13",
-                direction: "Казань"
-            },
-            {
-                id: 2,
-                name: "Остров-град Свияжск",
-                desc: "Путешествие в уникальный музей под открытым небом",
-                price: 4200,
-                oldPrice: 4800,
-                img: "https://avatars.mds.yandex.net/i?id=9c245123dc2fa959cffa249875103f23_l-5869106-images-thumbs&n=13",
-                direction: "Свияжск"
-            },
-            {
-                id: 3,
-                name: "Ночная Казань + подсветка Кремля",
-                desc: "Романтическая прогулка по вечернему городу",
-                price: 3000,
-                oldPrice: null,
-                img: "https://avatars.mds.yandex.net/i?id=3cff991ca735be8df5f6f80e70e7866d_l-8210406-images-thumbs&n=13",
-                direction: "Казань"
-            },
-            {
-                id: 4,
-                name: "Раифский монастырь и экопарк",
-                desc: "Духовная обитель и живописная природа",
-                price: 3500,
-                oldPrice: 3900,
-                img: "https://img.pac.ru/landmarks/481135/big/06837E157F0001012ED2DD8B527C64D8.jpg",
-                direction: "Раифа"
-            }
+            { id: 1, name: "Казанский Кремль и мечеть Кул-Шариф", desc: "Знакомство с главной достопримечательностью Татарстана", price: 2500, oldPrice: null, img: "https://avatars.mds.yandex.net/i?id=cd5f466cbcf6bbbcf686f430c3fee818_l-5206345-images-thumbs&n=13", direction: "Казань" },
+            { id: 2, name: "Остров-град Свияжск", desc: "Путешествие в уникальный музей под открытым небом", price: 4200, oldPrice: 4800, img: "https://avatars.mds.yandex.net/i?id=9c245123dc2fa959cffa249875103f23_l-5869106-images-thumbs&n=13", direction: "Свияжск" },
+            { id: 3, name: "Ночная Казань + подсветка Кремля", desc: "Романтическая прогулка по вечернему городу", price: 3000, oldPrice: null, img: "https://avatars.mds.yandex.net/i?id=3cff991ca735be8df5f6f80e70e7866d_l-8210406-images-thumbs&n=13", direction: "Казань" },
+            { id: 4, name: "Раифский монастырь и экопарк", desc: "Духовная обитель и живописная природа", price: 3500, oldPrice: 3900, img: "https://img.pac.ru/landmarks/481135/big/06837E157F0001012ED2DD8B527C64D8.jpg", direction: "Раифа" }
         ];
 
-        let currentFilter = "Любое направление";
-
-        // Функция для создания карточек с ровным отображением цены
-        function renderCards(filterDirection = "Любое направление") {
-            const container = document.getElementById("cardsContainer");
+        function renderCards(filter = "Любое направление") {
+            const container = document.getElementById('cardsContainer');
             if (!container) return;
-            
-            let filtered = [...toursData];
-            if (filterDirection !== "Любое направление") {
-                filtered = filtered.filter(tour => tour.direction === filterDirection);
-            }
-            
-            if (filtered.length === 0) {
-                container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px;">😞 Нет экскурсий по выбранному направлению</div>`;
-                return;
-            }
-            
-            container.innerHTML = filtered.map(tour => {
-                // блок цены с возможным старой ценой для визуального баланса (все карточки имеют одинаковую структуру)
-                const priceBlock = `
-                    <div class="card-price-wrapper">
-                        <span class="card-price">${tour.price.toLocaleString()} ₽</span>
-                        ${tour.oldPrice ? `<span class="card-old-price">${tour.oldPrice.toLocaleString()} ₽</span>` : ''}
+            let filtered = filter === "Любое направление" ? toursData : toursData.filter(t => t.direction === filter);
+            if (filtered.length === 0) { container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px;">😞 Нет экскурсий</div>`; return; }
+            container.innerHTML = filtered.map(tour => `
+                <div class="card" data-tour-id="${tour.id}">
+                    <div class="card-img" style="background-image: url('${tour.img}');"></div>
+                    <div class="card-content">
+                        <div class="card-title">${escapeHtml(tour.name)}</div>
+                        <div class="card-desc">${escapeHtml(tour.desc)}</div>
+                        <div class="card-price-wrapper"><span class="card-price">${tour.price.toLocaleString()} ₽</span>${tour.oldPrice ? `<span class="card-old-price">${tour.oldPrice.toLocaleString()} ₽</span>` : ''}</div>
+                        <button class="btn btn-primary card-details-btn" data-id="${tour.id}">Подробнее</button>
                     </div>
-                `;
-                return `
-                    <div class="card" data-tour-id="${tour.id}">
-                        <div class="card-img" style="background-image: url('${tour.img}'); background-size: cover;"></div>
-                        <div class="card-content">
-                            <div class="card-title">${escapeHtml(tour.name)}</div>
-                            <div class="card-desc">${escapeHtml(tour.desc)}</div>
-                            ${priceBlock}
-                            <button class="btn btn-primary card-details-btn" data-id="${tour.id}">Подробнее</button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            
-            // Привязываем события к кнопкам "Подробнее"
-            document.querySelectorAll('.card-details-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const id = parseInt(btn.getAttribute('data-id'));
-                    const tour = toursData.find(t => t.id === id);
-                    if (tour) {
-                        showToast(`🚀 Экскурсия: ${tour.name} | Цена от ${tour.price.toLocaleString()} ₽. Скоро детали!`);
-                        // Доп. обновление демо-блока бронирования для наглядности
-                        const demoNameElem = document.getElementById("demoTourName");
-                        const demoPriceSpan = document.getElementById("demoPriceDisplay");
-                        if (demoNameElem) demoNameElem.innerText = tour.name;
-                        if (demoPriceSpan) demoPriceSpan.innerHTML = `💰 ${tour.price.toLocaleString()} ₽`;
-                    }
-                });
+                </div>
+            `).join('');
+            document.querySelectorAll('.card-details-btn').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); const t = toursData.find(t => t.id === id); if(t){ showToast(`🚀 ${t.name} — цена ${t.price.toLocaleString()} ₽. Забронируйте прямо сейчас!`); document.getElementById("demoTourName").innerText = t.name; document.getElementById("demoPriceDisplay").innerHTML = `💰 ${t.price.toLocaleString()} ₽`; } }));
+        }
+
+        function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+        function showToast(msg, dur=2800){ let t = document.querySelector('.toast-msg'); if(t) t.remove(); let toast = document.createElement('div'); toast.className = 'toast-msg'; toast.innerText = msg; document.body.appendChild(toast); setTimeout(() => toast.remove(), dur); }
+
+        // Навигация: показываем нужный блок
+        function showSection(sectionId) {
+            const sections = ['homeSection', 'aboutSection', 'toursSection', 'touroperatorSection', 'partnersSection', 'reviewsSection', 'contactsSection'];
+            sections.forEach(id => { const el = document.getElementById(id); if(el) el.style.display = 'none'; });
+            const active = document.getElementById(sectionId);
+            if(active) active.style.display = 'block';
+            if(sectionId === 'toursSection') {
+                // Показываем контент экскурсий, но по сути это тот же homeSection, чтоб не дублировать, сделаем видимым homeSection
+                document.getElementById('homeSection').style.display = 'block';
+                document.getElementById('toursSection').style.display = 'none';
+                showToast('📸 Все экскурсии представлены на главной странице');
+            }
+            if(sectionId === 'homeSection') renderCards(document.getElementById('filterDirection')?.value || "Любое направление");
+        }
+
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = link.getAttribute('data-section');
+                if(target === 'home') showSection('homeSection');
+                else if(target === 'about') showSection('aboutSection');
+                else if(target === 'tours') showSection('toursSection');
+                else if(target === 'touroperator') showSection('touroperatorSection');
+                else if(target === 'partners') showSection('partnersSection');
+                else if(target === 'reviews') showSection('reviewsSection');
+                else if(target === 'contacts') showSection('contactsSection');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
-        }
-        
-        // вспомогательная функция для безопасности от XSS
-        function escapeHtml(str) {
-            return str.replace(/[&<>]/g, function(m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            });
-        }
-        
-        // Универсальный тост
-        function showToast(message, duration = 2500) {
-            let existingToast = document.querySelector('.toast-msg');
-            if (existingToast) existingToast.remove();
-            const toast = document.createElement('div');
-            toast.className = 'toast-msg';
-            toast.innerText = message;
-            document.body.appendChild(toast);
-            setTimeout(() => {
-                if (toast && toast.remove) toast.remove();
-            }, duration);
-        }
-        
-        // Обработчики интерактивности для всех кнопок
-        function initInteractive() {
-            // Применить фильтры
-            const filterBtn = document.getElementById('applyFilterBtn');
-            const filterSelect = document.getElementById('filterDirection');
-            if (filterBtn && filterSelect) {
-                filterBtn.addEventListener('click', () => {
-                    currentFilter = filterSelect.value;
-                    renderCards(currentFilter);
-                    showToast(`🔍 Показаны экскурсии: ${currentFilter === "Любое направление" ? "все направления" : currentFilter}`);
-                });
-            }
-            
-            // Кнопка бронирования в блоке предпросмотра
-            const bookNowBtn = document.getElementById('realBookNowBtn');
-            if (bookNowBtn) {
-                bookNowBtn.addEventListener('click', () => {
-                    const date = document.getElementById('bookingDate')?.value || 'сегодня';
-                    const time = document.getElementById('bookingTime')?.value || '10:00';
-                    const guests = document.getElementById('bookingGuests')?.value || '1 взрослый';
-                    const tourNameElem = document.getElementById('demoTourName');
-                    const tourName = tourNameElem ? tourNameElem.innerText : 'Казанский Кремль';
-                    const priceSpan = document.getElementById('demoPriceDisplay');
-                    let priceText = '2 500 ₽';
-                    if (priceSpan) priceText = priceSpan.innerText.replace('💰', '').trim();
-                    
-                    showToast(`✅ Заявка принята! Экскурсия "${tourName}", ${date} в ${time}, ${guests}. Сумма: ${priceText}. Менеджер свяжется с вами.`, 3500);
-                });
-            }
-            
-            // Клик по шапке "Заказ, бронь" → плавный скролл к блоку бронирования
-            const scrollBtn = document.getElementById('scrollToBookingBtn');
-            if (scrollBtn) {
-                scrollBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const bookingSection = document.getElementById('bookingSection');
-                    if (bookingSection) {
-                        bookingSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        showToast('📅 Выберите дату и время, нажмите "Забронировать"');
-                    }
-                });
-            }
-            
-            // Навигация (демо-клики)
-            const navItems = ['navHome', 'navAbout', 'navTours', 'navAgency', 'navPartners', 'navReviews', 'navContacts'];
-            navItems.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        let msg = '';
-                        if (id === 'navHome') msg = '🏠 Главная страница — популярные экскурсии и сервис';
-                        else if (id === 'navAbout') msg = '🌊 КазаньВолга: более 10 лет на рынке речных прогулок и экскурсий';
-                        else if (id === 'navTours') msg = '🚢 Все экскурсии: обзорные, водные, пешеходные — скоро каталог';
-                        else if (id === 'navAgency') msg = '🤝 Турфирмам: сотрудничество, агентские комиссии';
-                        else if (id === 'navPartners') msg = '⭐ Наши партнеры: отели, музеи, гиды';
-                        else if (id === 'navReviews') msg = '📝 98% гостей рекомендуют нас — смотрите отзывы';
-                        else if (id === 'navContacts') msg = '📞 Контакты: +7 (903) 305 09 91 или почта mail@kazanvolga.ru';
-                        showToast(msg);
-                    });
-                }
-            });
-            
-            // Кнопка "Заказать сайт" — уже работает как ссылка, дополнительный тост
-            const orderBtn = document.getElementById('orderSiteBtn');
-            if (orderBtn) {
-                orderBtn.addEventListener('click', (e) => {
-                    showToast('✨ Переход в портфолио разработчика. Свяжитесь для создания сайта экскурсий!', 3000);
-                });
-            }
-            
-            // Дополнительно обновляем демо-цену при изменении фильтра косвенно (для удобства)
-            const filterDirectionSelect = document.getElementById('filterDirection');
-            if (filterDirectionSelect) {
-                filterDirectionSelect.addEventListener('change', () => {});
-            }
-        }
-        
-        // Выравнивание через дополнительную инициализацию: обеспечить, чтобы у карточек цены были единообразны (все уже через price-wrapper)
-        // Сразу рендер при загрузке
-        renderCards("Любое направление");
-        initInteractive();
-        
-        // Синхронизируем фильтр и поиск, а также при старте сделаем, чтобы кнопка "Подробнее" у карточек существующих была активна,
-        // также добавим обработку на клик по карточке (доп. эффект)
-        document.addEventListener('click', function(e) {
-            if(e.target.classList && e.target.classList.contains('card-details-btn')) return;
-            // Добавим возможность клика по всей карточке (но без дублирования)
-            let card = e.target.closest('.card');
-            if(card && !e.target.closest('.card-details-btn')) {
-                const btnInside = card.querySelector('.card-details-btn');
-                if(btnInside) btnInside.click();
-            }
         });
-        
-        // Дополнительно инициализируем в demo блоке значение по умолчанию для даты
-        const todayInput = document.getElementById('bookingDate');
-        if(todayInput && !todayInput.value) {
-            todayInput.value = '2026-05-20';
-        }
-        const filterDateInput = document.getElementById('filterDate');
-        if(filterDateInput && !filterDateInput.value) {
-            filterDateInput.value = '2026-05-20';
-        }
-        
-        // Создаем единый дизайн: все цены в карточках занимают одинаковую высоту,
-        // Старая цена добавляет строку, но благодаря min-height блок ровный.
-        console.log("Сайт КазаньВолга — цены выровнены, все кнопки кликабельны");
+
+        document.getElementById('applyFilterBtn')?.addEventListener('click', () => { const dir = document.getElementById('filterDirection').value; renderCards(dir); showToast(`🔍 Экскурсии: ${dir === "Любое направление" ? "все" : dir}`); });
+        document.getElementById('realBookNowBtn')?.addEventListener('click', () => { showToast(`✅ Заявка принята! Менеджер свяжется в ближайшее время. Спасибо!`); });
+        document.getElementById('scrollToBookingBtn')?.addEventListener('click', (e) => { e.preventDefault(); showSection('homeSection'); setTimeout(() => document.getElementById('bookingSection')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100); });
+        document.getElementById('orderSiteBtn')?.addEventListener('click', () => showToast('✨ Портфолио разработчика откроется в новой вкладке'));
+
+        renderCards("Любое направление");
+        showSection('homeSection');
     </script>
 </body>
 </html>
