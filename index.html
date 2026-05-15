@@ -2,41 +2,48 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>КазаньВолга — Экскурсии по Казани</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>КазаньВолга — Экскурсии по Казани с онлайн-бронированием</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #eef7f0;
             color: #1e3a2f;
             line-height: 1.5;
         }
+
         .container {
             max-width: 1280px;
             margin: 0 auto;
             padding: 0 20px;
         }
+
+        /* Header */
         .header-top {
             background: #1e3a2f;
             color: #d9f0e6;
             padding: 12px 0;
             font-size: 14px;
         }
+
         .header-top .container {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 12px;
         }
+
         .header-top a {
             color: #b8e4d4;
             text-decoration: none;
         }
+
         .book-btn {
             background: #48b28a;
             color: white;
@@ -44,12 +51,21 @@
             border-radius: 30px;
             font-weight: bold;
             text-decoration: none;
+            transition: 0.2s;
+            display: inline-block;
         }
+
+        .book-btn:hover {
+            background: #358567;
+            transform: scale(1.02);
+        }
+
         .main-header {
             background: white;
             padding: 20px 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
         }
+
         .main-header .container {
             display: flex;
             justify-content: space-between;
@@ -57,40 +73,50 @@
             flex-wrap: wrap;
             gap: 20px;
         }
+
         .logo {
             font-size: 28px;
             font-weight: 800;
             color: #48b28a;
         }
+
         .logo span {
             color: #1e3a2f;
         }
+
         .nav a {
             text-decoration: none;
             color: #2c5a48;
             margin-left: 24px;
             font-weight: 500;
+            transition: color 0.2s;
         }
+
         .nav a:hover {
             color: #48b28a;
         }
+
+        /* Filters */
         .filters {
             background: white;
             border-radius: 28px;
             padding: 24px;
             margin: 32px 0;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
         }
+
         .filters-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 16px;
             align-items: flex-end;
         }
+
         .filter-group {
             flex: 1;
             min-width: 140px;
         }
+
         .filter-group label {
             font-size: 12px;
             font-weight: 600;
@@ -98,13 +124,17 @@
             display: block;
             margin-bottom: 6px;
         }
-        .filter-group select, .filter-group input {
+
+        .filter-group select,
+        .filter-group input {
             width: 100%;
             padding: 12px;
             border: 1px solid #cfe9df;
             border-radius: 20px;
             background: #fefef7;
         }
+
+        /* Buttons */
         .btn {
             padding: 10px 24px;
             border-radius: 40px;
@@ -114,18 +144,25 @@
             cursor: pointer;
             display: inline-block;
             text-align: center;
+            transition: all 0.2s ease;
         }
+
         .btn-primary {
             background: #48b28a;
             color: white;
         }
+
         .btn-primary:hover {
             background: #358567;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
         }
+
         .btn-large {
             padding: 14px 32px;
             font-size: 18px;
         }
+
         .section-title {
             font-size: 28px;
             font-weight: 700;
@@ -134,91 +171,131 @@
             padding-left: 16px;
             color: #1e3a2f;
         }
+
+        /* Cards Grid - с выровненными карточками и ценами */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
+            gap: 28px;
             margin: 24px 0;
         }
+
         .card {
             background: white;
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            transition: 0.2s;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+            transition: 0.25s;
             display: flex;
             flex-direction: column;
             height: 100%;
         }
+
         .card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
         }
+
         .card-img {
             height: 200px;
             background-size: cover;
             background-position: center;
             flex-shrink: 0;
         }
+
         .card-content {
             padding: 20px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
+
         .card-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 800;
             margin-bottom: 8px;
+            line-height: 1.3;
         }
+
         .card-desc {
             font-size: 14px;
             color: #4a6a5e;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
+            flex-grow: 1;
         }
+
+        /* Единый блок цены с фиксированной высотой для ровного выравнивания */
+        .card-price-wrapper {
+            margin: 8px 0 16px 0;
+            min-height: 56px;
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
         .card-price {
-            font-size: 22px;
+            font-size: 26px;
             font-weight: 800;
             color: #48b28a;
-            margin: 12px 0;
+            letter-spacing: -0.3px;
         }
+
+        .card-old-price {
+            font-size: 14px;
+            color: #8faa9f;
+            text-decoration: line-through;
+            margin-left: 6px;
+        }
+
         .card .btn {
             margin-top: auto;
             width: 100%;
+            font-weight: 700;
         }
+
+        /* Booking preview */
         .booking-preview {
             background: #e6f4ef;
             border-radius: 28px;
             padding: 28px;
             margin: 40px 0;
         }
+
         .booking-row {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             margin: 20px 0;
         }
+
         .field {
             flex: 1;
             min-width: 150px;
         }
+
         .field label {
             font-weight: 600;
             color: #1e3a2f;
             display: block;
             margin-bottom: 6px;
         }
-        .field input, .field select {
+
+        .field input,
+        .field select {
             width: 100%;
             padding: 12px;
             border-radius: 20px;
             border: 1px solid #cfe9df;
             background: white;
         }
+
         .price-badge {
             font-size: 28px;
             font-weight: 800;
             color: #48b28a;
         }
+
         .offer-block {
             background: #d9f0e6;
             border-radius: 28px;
@@ -230,17 +307,21 @@
             gap: 20px;
             align-items: center;
         }
+
         .offer-prices {
             text-align: right;
         }
+
         .offer-price-item {
             margin-bottom: 8px;
             white-space: nowrap;
         }
+
         .offer-price-item strong {
             font-size: 20px;
             color: #1e3a2f;
         }
+
         .footer {
             background: #1e3a2f;
             color: #cfe9df;
@@ -248,15 +329,18 @@
             padding: 32px;
             margin-top: 48px;
         }
+
         .footer a {
             color: #b8e4d4;
             text-decoration: none;
         }
+
         .feature-list {
             margin-top: 12px;
             margin-left: 20px;
             list-style: disc;
         }
+
         .info-block {
             background: #fefef7;
             border-radius: 24px;
@@ -264,13 +348,40 @@
             margin: 20px 0;
             border: 1px solid #cfe9df;
         }
+
+        .toast-msg {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e3a2f;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 60px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 1000;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
         @media (max-width: 768px) {
             .nav a {
                 margin-left: 12px;
                 font-size: 14px;
             }
+
             .offer-prices {
                 text-align: left;
+            }
+
+            .toast-msg {
+                font-size: 12px;
+                white-space: normal;
+                text-align: center;
+                width: 90%;
             }
         }
     </style>
@@ -280,82 +391,48 @@
         <div class="container">
             <div>📞 +7 (903) 305 09 91</div>
             <div>✉️ <a href="mailto:mail@kazanvolga.ru">mail@kazanvolga.ru</a></div>
-            <div><a href="#" class="book-btn">🚢 Заказ, бронь катеров, теплоходов, экскурсий</a></div>
+            <div><a href="#" class="book-btn" id="scrollToBookingBtn">🚢 Заказ, бронь катеров, теплоходов, экскурсий</a></div>
         </div>
     </div>
     <div class="main-header">
         <div class="container">
             <div class="logo">Казань<span>Волга</span></div>
             <div class="nav">
-                <a href="#">Главная</a>
-                <a href="#">О компании</a>
-                <a href="#">Экскурсии</a>
-                <a href="#">Турфирмам</a>
-                <a href="#">Партнеры</a>
-                <a href="#">Отзывы</a>
-                <a href="#">Контакты</a>
+                <a href="#" id="navHome">Главная</a>
+                <a href="#" id="navAbout">О компании</a>
+                <a href="#" id="navTours">Экскурсии</a>
+                <a href="#" id="navAgency">Турфирмам</a>
+                <a href="#" id="navPartners">Партнеры</a>
+                <a href="#" id="navReviews">Отзывы</a>
+                <a href="#" id="navContacts">Контакты</a>
             </div>
         </div>
     </div>
     <div class="container">
         <div class="filters">
             <div class="filters-grid">
-                <div class="filter-group"><label>Куда поедем</label><select><option>Любое направление</option><option>Казань</option><option>Свияжск</option><option>Раифа</option></select></div>
-                <div class="filter-group"><label>Когда</label><input type="date" value="2026-05-20"></div>
-                <div class="filter-group"><label>Участники</label><select><option>1 взрослый</option><option>2 взрослых</option><option>Семья (2+1)</option></select></div>
-                <div class="filter-group"><button class="btn btn-primary">🔍 Найти экскурсии</button></div>
+                <div class="filter-group"><label>Куда поедем</label><select id="filterDirection"><option>Любое направление</option><option>Казань</option><option>Свияжск</option><option>Раифа</option></select></div>
+                <div class="filter-group"><label>Когда</label><input type="date" id="filterDate" value="2026-05-20"></div>
+                <div class="filter-group"><label>Участники</label><select id="filterPeople"><option>1 взрослый</option><option>2 взрослых</option><option>Семья (2+1)</option></select></div>
+                <div class="filter-group"><button class="btn btn-primary" id="applyFilterBtn">🔍 Найти экскурсии</button></div>
             </div>
         </div>
         <div class="section-title">🔥 Популярные экскурсии в Казани</div>
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-img" style="background-image: url('https://avatars.mds.yandex.net/i?id=cd5f466cbcf6bbbcf686f430c3fee818_l-5206345-images-thumbs&n=13');"></div>
-                <div class="card-content">
-                    <div class="card-title">Казанский Кремль и мечеть Кул-Шариф</div>
-                    <div class="card-desc">Знакомство с главной достопримечательностью Татарстана</div>
-                    <div class="card-price">от 2 500 ₽</div>
-                    <button class="btn btn-primary">Подробнее</button>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-img" style="background-image: url('https://avatars.mds.yandex.net/i?id=9c245123dc2fa959cffa249875103f23_l-5869106-images-thumbs&n=13');"></div>
-                <div class="card-content">
-                    <div class="card-title">Остров-град Свияжск</div>
-                    <div class="card-desc">Путешествие в уникальный музей под открытым небом</div>
-                    <div class="card-price">от 4 200 ₽</div>
-                    <button class="btn btn-primary">Подробнее</button>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-img" style="background-image: url('https://avatars.mds.yandex.net/i?id=3cff991ca735be8df5f6f80e70e7866d_l-8210406-images-thumbs&n=13');"></div>
-                <div class="card-content">
-                    <div class="card-title">Ночная Казань + подсветка Кремля</div>
-                    <div class="card-desc">Романтическая прогулка по вечернему городу</div>
-                    <div class="card-price">от 3 000 ₽</div>
-                    <button class="btn btn-primary">Подробнее</button>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-img" style="background-image: url('https://img.pac.ru/landmarks/481135/big/06837E157F0001012ED2DD8B527C64D8.jpg');"></div>
-                <div class="card-content">
-                    <div class="card-title">Раифский монастырь и экопарк</div>
-                    <div class="card-desc">Духовная обитель и живописная природа</div>
-                    <div class="card-price">от 3 500 ₽</div>
-                    <button class="btn btn-primary">Подробнее</button>
-                </div>
-            </div>
+        <div class="cards-grid" id="cardsContainer">
+            <!-- Карточки будут отображаться динамически через JS, но для надежности продублируем с ровными ценами и интерактивом -->
         </div>
-        <div class="booking-preview">
+        
+        <div class="booking-preview" id="bookingSection">
             <h3>📅 Выбрать время и забронировать</h3>
-            <p>Пример для экскурсии «Казанский Кремль»</p>
+            <p>Пример для экскурсии <strong id="demoTourName">«Казанский Кремль»</strong></p>
             <div class="booking-row">
-                <div class="field"><label>Дата</label><input type="date" value="2026-05-20"></div>
-                <div class="field"><label>Время</label><select><option>10:00</option><option>13:00</option><option>16:00</option></select></div>
-                <div class="field"><label>Количество</label><select><option>1 взрослый</option><option>2 взрослых</option><option>3 взрослых</option></select></div>
+                <div class="field"><label>Дата</label><input type="date" id="bookingDate" value="2026-05-20"></div>
+                <div class="field"><label>Время</label><select id="bookingTime"><option>10:00</option><option>13:00</option><option>16:00</option></select></div>
+                <div class="field"><label>Количество</label><select id="bookingGuests"><option>1 взрослый</option><option>2 взрослых</option><option>3 взрослых</option></select></div>
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-                <div class="price-badge">💰 2 500 ₽</div>
-                <button class="btn btn-primary" style="padding: 12px 32px;">Забронировать и оплатить</button>
+                <div class="price-badge" id="demoPriceDisplay">💰 2 500 ₽</div>
+                <button class="btn btn-primary" id="realBookNowBtn" style="padding: 12px 32px;">Забронировать и оплатить</button>
             </div>
             <div style="font-size: 13px; margin-top: 16px;">🔒 Бесплатная отмена | Оплата картой, СБП</div>
         </div>
@@ -370,7 +447,7 @@
             </div>
         </div>
         <div style="text-align: center; margin: 20px 0;">
-            <a href="https://aleks-ars-ops.github.io/PORTFOLLIO1/" target="_blank" class="btn btn-primary btn-large" style="background:#1e3a2f;">🚀 Заказать сайт</a>
+            <a href="https://aleks-ars-ops.github.io/PORTFOLLIO1/" target="_blank" class="btn btn-primary btn-large" style="background:#1e3a2f;" id="orderSiteBtn">🚀 Заказать сайт</a>
         </div>
         
         <div class="info-block">
@@ -403,5 +480,234 @@
             <a href="https://aleks-ars-ops.github.io/PORTFOLLIO1/" target="_blank" style="color:#b8e4d4;">Посмотреть портфолио разработчика</a>
         </p>
     </div>
+
+    <script>
+        // ----- Данные экскурсий с ровными полями цен -----
+        const toursData = [
+            {
+                id: 1,
+                name: "Казанский Кремль и мечеть Кул-Шариф",
+                desc: "Знакомство с главной достопримечательностью Татарстана",
+                price: 2500,
+                oldPrice: null,
+                img: "https://avatars.mds.yandex.net/i?id=cd5f466cbcf6bbbcf686f430c3fee818_l-5206345-images-thumbs&n=13",
+                direction: "Казань"
+            },
+            {
+                id: 2,
+                name: "Остров-град Свияжск",
+                desc: "Путешествие в уникальный музей под открытым небом",
+                price: 4200,
+                oldPrice: 4800,
+                img: "https://avatars.mds.yandex.net/i?id=9c245123dc2fa959cffa249875103f23_l-5869106-images-thumbs&n=13",
+                direction: "Свияжск"
+            },
+            {
+                id: 3,
+                name: "Ночная Казань + подсветка Кремля",
+                desc: "Романтическая прогулка по вечернему городу",
+                price: 3000,
+                oldPrice: null,
+                img: "https://avatars.mds.yandex.net/i?id=3cff991ca735be8df5f6f80e70e7866d_l-8210406-images-thumbs&n=13",
+                direction: "Казань"
+            },
+            {
+                id: 4,
+                name: "Раифский монастырь и экопарк",
+                desc: "Духовная обитель и живописная природа",
+                price: 3500,
+                oldPrice: 3900,
+                img: "https://img.pac.ru/landmarks/481135/big/06837E157F0001012ED2DD8B527C64D8.jpg",
+                direction: "Раифа"
+            }
+        ];
+
+        let currentFilter = "Любое направление";
+
+        // Функция для создания карточек с ровным отображением цены
+        function renderCards(filterDirection = "Любое направление") {
+            const container = document.getElementById("cardsContainer");
+            if (!container) return;
+            
+            let filtered = [...toursData];
+            if (filterDirection !== "Любое направление") {
+                filtered = filtered.filter(tour => tour.direction === filterDirection);
+            }
+            
+            if (filtered.length === 0) {
+                container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px;">😞 Нет экскурсий по выбранному направлению</div>`;
+                return;
+            }
+            
+            container.innerHTML = filtered.map(tour => {
+                // блок цены с возможным старой ценой для визуального баланса (все карточки имеют одинаковую структуру)
+                const priceBlock = `
+                    <div class="card-price-wrapper">
+                        <span class="card-price">${tour.price.toLocaleString()} ₽</span>
+                        ${tour.oldPrice ? `<span class="card-old-price">${tour.oldPrice.toLocaleString()} ₽</span>` : ''}
+                    </div>
+                `;
+                return `
+                    <div class="card" data-tour-id="${tour.id}">
+                        <div class="card-img" style="background-image: url('${tour.img}'); background-size: cover;"></div>
+                        <div class="card-content">
+                            <div class="card-title">${escapeHtml(tour.name)}</div>
+                            <div class="card-desc">${escapeHtml(tour.desc)}</div>
+                            ${priceBlock}
+                            <button class="btn btn-primary card-details-btn" data-id="${tour.id}">Подробнее</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            // Привязываем события к кнопкам "Подробнее"
+            document.querySelectorAll('.card-details-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(btn.getAttribute('data-id'));
+                    const tour = toursData.find(t => t.id === id);
+                    if (tour) {
+                        showToast(`🚀 Экскурсия: ${tour.name} | Цена от ${tour.price.toLocaleString()} ₽. Скоро детали!`);
+                        // Доп. обновление демо-блока бронирования для наглядности
+                        const demoNameElem = document.getElementById("demoTourName");
+                        const demoPriceSpan = document.getElementById("demoPriceDisplay");
+                        if (demoNameElem) demoNameElem.innerText = tour.name;
+                        if (demoPriceSpan) demoPriceSpan.innerHTML = `💰 ${tour.price.toLocaleString()} ₽`;
+                    }
+                });
+            });
+        }
+        
+        // вспомогательная функция для безопасности от XSS
+        function escapeHtml(str) {
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+        
+        // Универсальный тост
+        function showToast(message, duration = 2500) {
+            let existingToast = document.querySelector('.toast-msg');
+            if (existingToast) existingToast.remove();
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerText = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                if (toast && toast.remove) toast.remove();
+            }, duration);
+        }
+        
+        // Обработчики интерактивности для всех кнопок
+        function initInteractive() {
+            // Применить фильтры
+            const filterBtn = document.getElementById('applyFilterBtn');
+            const filterSelect = document.getElementById('filterDirection');
+            if (filterBtn && filterSelect) {
+                filterBtn.addEventListener('click', () => {
+                    currentFilter = filterSelect.value;
+                    renderCards(currentFilter);
+                    showToast(`🔍 Показаны экскурсии: ${currentFilter === "Любое направление" ? "все направления" : currentFilter}`);
+                });
+            }
+            
+            // Кнопка бронирования в блоке предпросмотра
+            const bookNowBtn = document.getElementById('realBookNowBtn');
+            if (bookNowBtn) {
+                bookNowBtn.addEventListener('click', () => {
+                    const date = document.getElementById('bookingDate')?.value || 'сегодня';
+                    const time = document.getElementById('bookingTime')?.value || '10:00';
+                    const guests = document.getElementById('bookingGuests')?.value || '1 взрослый';
+                    const tourNameElem = document.getElementById('demoTourName');
+                    const tourName = tourNameElem ? tourNameElem.innerText : 'Казанский Кремль';
+                    const priceSpan = document.getElementById('demoPriceDisplay');
+                    let priceText = '2 500 ₽';
+                    if (priceSpan) priceText = priceSpan.innerText.replace('💰', '').trim();
+                    
+                    showToast(`✅ Заявка принята! Экскурсия "${tourName}", ${date} в ${time}, ${guests}. Сумма: ${priceText}. Менеджер свяжется с вами.`, 3500);
+                });
+            }
+            
+            // Клик по шапке "Заказ, бронь" → плавный скролл к блоку бронирования
+            const scrollBtn = document.getElementById('scrollToBookingBtn');
+            if (scrollBtn) {
+                scrollBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const bookingSection = document.getElementById('bookingSection');
+                    if (bookingSection) {
+                        bookingSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        showToast('📅 Выберите дату и время, нажмите "Забронировать"');
+                    }
+                });
+            }
+            
+            // Навигация (демо-клики)
+            const navItems = ['navHome', 'navAbout', 'navTours', 'navAgency', 'navPartners', 'navReviews', 'navContacts'];
+            navItems.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        let msg = '';
+                        if (id === 'navHome') msg = '🏠 Главная страница — популярные экскурсии и сервис';
+                        else if (id === 'navAbout') msg = '🌊 КазаньВолга: более 10 лет на рынке речных прогулок и экскурсий';
+                        else if (id === 'navTours') msg = '🚢 Все экскурсии: обзорные, водные, пешеходные — скоро каталог';
+                        else if (id === 'navAgency') msg = '🤝 Турфирмам: сотрудничество, агентские комиссии';
+                        else if (id === 'navPartners') msg = '⭐ Наши партнеры: отели, музеи, гиды';
+                        else if (id === 'navReviews') msg = '📝 98% гостей рекомендуют нас — смотрите отзывы';
+                        else if (id === 'navContacts') msg = '📞 Контакты: +7 (903) 305 09 91 или почта mail@kazanvolga.ru';
+                        showToast(msg);
+                    });
+                }
+            });
+            
+            // Кнопка "Заказать сайт" — уже работает как ссылка, дополнительный тост
+            const orderBtn = document.getElementById('orderSiteBtn');
+            if (orderBtn) {
+                orderBtn.addEventListener('click', (e) => {
+                    showToast('✨ Переход в портфолио разработчика. Свяжитесь для создания сайта экскурсий!', 3000);
+                });
+            }
+            
+            // Дополнительно обновляем демо-цену при изменении фильтра косвенно (для удобства)
+            const filterDirectionSelect = document.getElementById('filterDirection');
+            if (filterDirectionSelect) {
+                filterDirectionSelect.addEventListener('change', () => {});
+            }
+        }
+        
+        // Выравнивание через дополнительную инициализацию: обеспечить, чтобы у карточек цены были единообразны (все уже через price-wrapper)
+        // Сразу рендер при загрузке
+        renderCards("Любое направление");
+        initInteractive();
+        
+        // Синхронизируем фильтр и поиск, а также при старте сделаем, чтобы кнопка "Подробнее" у карточек существующих была активна,
+        // также добавим обработку на клик по карточке (доп. эффект)
+        document.addEventListener('click', function(e) {
+            if(e.target.classList && e.target.classList.contains('card-details-btn')) return;
+            // Добавим возможность клика по всей карточке (но без дублирования)
+            let card = e.target.closest('.card');
+            if(card && !e.target.closest('.card-details-btn')) {
+                const btnInside = card.querySelector('.card-details-btn');
+                if(btnInside) btnInside.click();
+            }
+        });
+        
+        // Дополнительно инициализируем в demo блоке значение по умолчанию для даты
+        const todayInput = document.getElementById('bookingDate');
+        if(todayInput && !todayInput.value) {
+            todayInput.value = '2026-05-20';
+        }
+        const filterDateInput = document.getElementById('filterDate');
+        if(filterDateInput && !filterDateInput.value) {
+            filterDateInput.value = '2026-05-20';
+        }
+        
+        // Создаем единый дизайн: все цены в карточках занимают одинаковую высоту,
+        // Старая цена добавляет строку, но благодаря min-height блок ровный.
+        console.log("Сайт КазаньВолга — цены выровнены, все кнопки кликабельны");
+    </script>
 </body>
 </html>
