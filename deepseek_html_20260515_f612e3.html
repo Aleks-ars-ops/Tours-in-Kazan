@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Экскурсии в Казани — пример сайта</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fb;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Шапка */
+        .header {
+            background: #0f172a;
+            color: white;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+        .logo span {
+            color: #f59e0b;
+        }
+        .nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            margin-left: 24px;
+        }
+        .btn {
+            padding: 8px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: #f59e0b;
+            color: #0f172a;
+        }
+        /* Фильтры */
+        .filters {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin: 32px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .filters-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: flex-end;
+        }
+        .filter-group {
+            flex: 1;
+            min-width: 140px;
+        }
+        .filter-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #475569;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .filter-group select, .filter-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+        }
+        /* Карточки экскурсий */
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 32px 0 20px;
+            border-left: 5px solid #f59e0b;
+            padding-left: 16px;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            margin: 24px 0;
+        }
+        .card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+        }
+        .card-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        .card-content {
+            padding: 20px;
+        }
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .card-price {
+            font-size: 24px;
+            font-weight: 800;
+            color: #f59e0b;
+            margin: 12px 0;
+        }
+        .card-info {
+            display: flex;
+            gap: 16px;
+            font-size: 14px;
+            color: #475569;
+            margin-bottom: 16px;
+        }
+        .btn-small {
+            background: #f59e0b;
+            color: #0f172a;
+            padding: 10px;
+            text-align: center;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            display: block;
+        }
+        /* Бронирование */
+        .booking-preview {
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            margin: 40px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .booking-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+            align-items: flex-end;
+        }
+        .field {
+            flex: 1;
+            min-width: 150px;
+        }
+        .field label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .field input, .field select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 16px;
+            border: 1px solid #cbd5e1;
+        }
+        .price-badge {
+            font-size: 28px;
+            font-weight: 800;
+            color: #f59e0b;
+        }
+        .offer-block {
+            background: #fef9e3;
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            border-radius: 20px;
+            margin: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+        }
+        .footer {
+            background: #0f172a;
+            color: #94a3b8;
+            text-align: center;
+            padding: 24px;
+            margin-top: 48px;
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .container { padding: 0 16px; }
+            .cards-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="container">
+        <div class="logo">Kazan<span>Guide</span></div>
+        <div class="nav">
+            <a href="#">Экскурсии</a>
+            <a href="#">О нас</a>
+            <a href="#" class="btn btn-primary">Войти</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Фильтры -->
+    <div class="filters">
+        <div class="filters-grid">
+            <div class="filter-group"><label>Где</label><select><option>Казань</option><option>Казань + Раифа</option><option>Свияжск</option></select></div>
+            <div class="filter-group"><label>Дата</label><input type="date" value="2026-05-20"></div>
+            <div class="filter-group"><label>Участники</label><select><option>1 взрослый</option><option>2 взрослых</option><option>Семья (2+1)</option></select></div>
+            <div class="filter-group"><button class="btn btn-primary" style="width:100%">🔍 Найти экскурсии</button></div>
+        </div>
+    </div>
+
+    <div class="section-title">🏛️ Популярные экскурсии в Казани</div>
+    <div class="cards-grid">
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1587588352763-d963d50a2173?w=600&h=400&fit=crop');"></div>
+            <div class="card-content">
+                <div class="card-title">Казанский Кремль и мечеть Кул-Шариф</div>
+                <div class="card-price">от 2 500 ₽</div>
+                <div class="card-info">⏱ 2.5 часа | 👥 до 10 чел | 🎧 аудиогид</div>
+                <a href="#" class="btn-small">Выбрать время →</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1627821977379-ae11aa8c0b87?w=600&h=400&fit=crop');"></div>
+            <div class="card-content">
+                <div class="card-title">Остров-град Свияжск</div>
+                <div class="card-price">от 4 200 ₽</div>
+                <div class="card-info">🚗 5 часов | 🌿 обед включён | 📸 фотосессия</div>
+                <a href="#" class="btn-small">Выбрать время →</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1596469472672-a3cdb7e6bceb?w=600&h=400&fit=crop');"></div>
+            <div class="card-content">
+                <div class="card-title">Ночная Казань + подсветка Кремля</div>
+                <div class="card-price">от 3 000 ₽</div>
+                <div class="card-info">🌙 3 часа | 🚐 трансфер | 🍷 дегустация</div>
+                <a href="#" class="btn-small">Выбрать время →</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1556012241-2d6520a2902b?w=600&h=400&fit=crop');"></div>
+            <div class="card-content">
+                <div class="card-title">Раифский монастырь и экопарк</div>
+                <div class="card-price">от 3 500 ₽</div>
+                <div class="card-info">🌲 4 часа | 🥗 обед | 🚌 автобус</div>
+                <a href="#" class="btn-small">Выбрать время →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Демо-блок бронирования (как tripster) -->
+    <div class="booking-preview">
+        <h3 style="margin-bottom: 8px;">📅 Выбрать время и забронировать</h3>
+        <p style="margin-bottom: 16px;">Пример формы для экскурсии "Казанский Кремль"</p>
+        <div class="booking-row">
+            <div class="field"><label>📆 Дата</label><input type="date" value="2026-05-20"></div>
+            <div class="field"><label>⏰ Время</label><select><option>10:00</option><option>13:00</option><option>16:00</option><option>19:00</option></select></div>
+            <div class="field"><label>👥 Количество взрослых</label><select><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 20px;">
+            <div class="price-badge">💰 2 500 ₽</div>
+            <div><a href="#" class="btn btn-primary" style="padding: 12px 32px;">Забронировать и оплатить</a></div>
+        </div>
+        <div style="font-size: 13px; color: #475569; margin-top: 16px;">🔒 Оплата картой, СБП, ЮMoney. Бесплатная отмена за 24 часа.</div>
+    </div>
+
+    <!-- Ваше предложение и скидка -->
+    <div class="offer-block">
+        <div>
+            <strong>🎯 Хотите такой же сайт для ваших экскурсий?</strong><br>
+            Сделаем каталог, бронирование, онлайн-оплату. Пример — перед вами.
+        </div>
+        <div>
+            <span style="font-size: 24px; font-weight:800;">30 000 ₽</span><br>
+            <span style="font-size: 13px;">упрощённый вариант: каталог + форма заявки</span>
+        </div>
+    </div>
+
+    <div style="background: #eef2ff; border-radius: 20px; padding: 20px; margin: 20px 0;">
+        <h4>✅ Что входит в упрощённый сайт (30 000 ₽):</h4>
+        <ul style="margin-top: 12px; margin-left: 20px;">
+            <li>Каталог экскурсий с фото (до 10 штук)</li>
+            <li>Фильтры по дате и месту (демо)</li>
+            <li>Форма заявки — клиент оставляет телефон, вы звоните</li>
+            <li>Админ-панель: добавлять/менять экскурсии</li>
+            <li>Адаптивный дизайн, работает на телефонах</li>
+        </ul>
+        <div style="margin-top: 16px;"><a href="#" class="btn btn-primary">🚀 Заказать сайт</a></div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>Пример сайта экскурсий в Казани | Статичный макет для демонстрации | Полноценный сайт с оплатой делается под заказ</p>
+</div>
+</body>
+</html>
